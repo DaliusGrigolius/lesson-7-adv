@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace lesson_7_adv
@@ -84,42 +84,80 @@ namespace lesson_7_adv
             //    Console.WriteLine(n.Name);
             //}
             //------------------------------------------------------------
-            List<Person1> people1 = new List<Person1>();
+            //List<Person1> people1 = new List<Person1>();
 
-            List<Animal> animals = new List<Animal>();
-            animals.Add(new Animal("Suo", 8));
-            animals.Add(new Animal("Kate", 12));
-            animals.Add(new Animal("Triusis", 3));
-            List<Animal> animals1 = new List<Animal>();
-            animals.Add(new Animal("Vista", 2));
-            animals.Add(new Animal("Kiaule", 1));
-            animals.Add(new Animal("Zasis", 3));
-            List<Animal> animals2 = new List<Animal>();
-            animals.Add(new Animal("Antis", 77));
-            animals.Add(new Animal("Sermonelis", 7));
-            animals.Add(new Animal("Seskas", 3));
+            //List<Animal> animals = new List<Animal>();
+            //animals.Add(new Animal("Suo", 8));
+            //animals.Add(new Animal("Kate", 12));
+            //animals.Add(new Animal("Triusis", 3));
+            //List<Animal> animals1 = new List<Animal>();
+            //animals.Add(new Animal("Vista", 2));
+            //animals.Add(new Animal("Kiaule", 1));
+            //animals.Add(new Animal("Zasis", 3));
+            //List<Animal> animals2 = new List<Animal>();
+            //animals.Add(new Animal("Antis", 77));
+            //animals.Add(new Animal("Sermonelis", 7));
+            //animals.Add(new Animal("Seskas", 3));
 
-            people1.Add(new Person1("Antanas", animals));
-            people1.Add(new Person1("Lukas", animals1));
-            people1.Add(new Person1("Zenonas", animals2));
+            //people1.Add(new Person1("Antanas", animals));
+            //people1.Add(new Person1("Lukas", animals1));
+            //people1.Add(new Person1("Zenonas", animals2));
 
-            var allAnimals = people1.SelectMany(i => i.Animals);
-            foreach (var animal in allAnimals)
+            //var allAnimals = people1.SelectMany(i => i.Animals);
+            //foreach (var animal in allAnimals)
+            //{
+            //    Console.WriteLine(animal.Name);
+            //}
+            //Console.WriteLine("-----------");
+            //var animalsStartingLetterA = allAnimals.Where(i => i.Name.StartsWith("A"));
+            //foreach (var animal in animalsStartingLetterA)
+            //{
+            //    Console.WriteLine(animal.Name);
+            //}
+            //Console.WriteLine("-----------");
+            //var animalsStartingLetterAAgeMoreThan5 = allAnimals.Where(i => i.Name.StartsWith("A") && i.Age > 5);
+            //foreach (var a in animalsStartingLetterAAgeMoreThan5)
+            //{
+            //    Console.WriteLine($"vardas: {a.Name}, amzius: {a.Age}");
+            //}
+            //-----------------------------------------------------------------
+            Console.WriteLine("////////////////////////////////////////////////////////////");
+            Console.WriteLine("--------------------------- 0 ------------------------------");
+            Console.WriteLine("////////////////////////////////////////////////////////////");
+            string[] allfiles = Directory.GetFileSystemEntries(@"C:\Users\User\Desktop\repos\1 lesson\", "*.*", SearchOption.AllDirectories);
+            foreach (string file in allfiles)
             {
-                Console.WriteLine(animal.Name);
+                Console.WriteLine(file);
             }
-            Console.WriteLine("-----------");
-            var animalsStartingLetterA = allAnimals.Where(i => i.Name.StartsWith("A"));
-            foreach (var animal in animalsStartingLetterA)
+            Console.WriteLine("////////////////////////////////////////////////////////////");
+            Console.WriteLine("--------------------------- 1 ------------------------------");
+            Console.WriteLine("////////////////////////////////////////////////////////////");
+            var fileExtensions = allfiles.Select(d => Path.GetExtension(d)).Where(i => !string.IsNullOrEmpty(i));
+            foreach (var x in fileExtensions)
             {
-                Console.WriteLine(animal.Name);
+                Console.WriteLine(x);
             }
-            Console.WriteLine("-----------");
-            var animalsStartingLetterAAgeMoreThan5 = allAnimals.Where(i => i.Name.StartsWith("A") && i.Age > 5);
-            foreach (var a in animalsStartingLetterAAgeMoreThan5)
+            //-----------------
+            Console.WriteLine("////////////////////////////////////////////////////////////");
+            Console.WriteLine("--------------------------- 2 ------------------------------");
+            Console.WriteLine("////////////////////////////////////////////////////////////");
+            var txtFiles = allfiles.Where(i => Path.GetExtension(i) == ".txt");
+            foreach (var x in txtFiles)
             {
-                Console.WriteLine($"vardas: {a.Name}, amzius: {a.Age}");
+                Console.WriteLine(x);
             }
+            Console.WriteLine("////////////////////////////////////////////////////////////");
+            Console.WriteLine("--------------------------- 3 ------------------------------");
+            Console.WriteLine("////////////////////////////////////////////////////////////");
+            var txtFilesNames = txtFiles.Select(i => Path.GetFileNameWithoutExtension(i));
+            foreach (var x in txtFilesNames)
+            {
+                Console.WriteLine(x);
+            }
+
+
+
+            Console.ReadLine();
         }
     }
 }
